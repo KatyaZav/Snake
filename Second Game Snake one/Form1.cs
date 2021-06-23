@@ -21,17 +21,34 @@ namespace Second_Game_Snake_one
             Down=3
         }
 
+        int Length;
+        Point[] mas = new Point[64];
         Direction MoveTurn;
         Point head = new Point(150,150);
+        Point apple;
+        bool AppleEat = true;
 
         public Form1()
         {
             InitializeComponent();
             MoveTurn = 0;
+            Length = 1;
+            mas[0] = head;
         }
 
         private void panel1_Paint(object sender, PaintEventArgs e)
         {
+            if (AppleEat)
+            {
+                Random rnd = new Random();
+                var x = rnd.Next(0, 7)*50;
+                var y = rnd.Next(0, 7)*50;
+                apple.X = x;
+                apple.Y = y;
+                AppleEat = false;
+            }
+
+
             if (MoveTurn == 0)
                 head.X+=50;
             if (MoveTurn == Direction.Left)
@@ -44,10 +61,19 @@ namespace Second_Game_Snake_one
             if (head.Y<0 || head.X <0 || head.Y>=400 || head.X >= 400)
             {
                 head.X = 150;
-                head.Y = 150;
-                
+                head.Y = 150;                
             }
 
+            if (!AppleEat && apple.X == head.X && head.Y == apple.Y)
+            {
+                AppleEat = true;
+                Length++;
+            }
+            else
+            {
+                var colorApple = new SolidBrush(Color.Red);
+                e.Graphics.FillEllipse(colorApple, apple.X, apple.Y, 50, 50);
+            }
             var colorSnake = new SolidBrush(Color.Blue);
             e.Graphics.FillRectangle(colorSnake,head.X,head.Y,50,50);
         }
