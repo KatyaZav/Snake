@@ -76,11 +76,7 @@ namespace Second_Game_Snake_one
                 Length++;
                 Random rnd = new Random();
                 apple.X = rnd.Next(0, 7) * 50;
-                apple.Y = rnd.Next(0, 7) * 50;
-                //if (Length > 10)
-                //    timer1.Interval = 300;
-                //if (Length > 20)
-                //    timer1.Interval = 150;
+                apple.Y = rnd.Next(0, 7) * 50;              
             }
         }
 
